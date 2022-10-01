@@ -1,0 +1,16 @@
+{
+  "name": "app-snip-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "form-data": "^4.0.0",
+    "inquirer": "^8.2.4",
+    "yargs": "^17.6.0"
+  }
+}
