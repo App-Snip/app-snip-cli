@@ -115,7 +115,7 @@ const promptForUpload = async (imageFiles, imgDir) => {
     },
     {
       ...q("input", "assignment", "What is the name of the assignment?"),
-      when: (prev) => prev === "yes",
+      when: (prev) => prev.okToUpload === "yes",
     },
   ];
   console.log(`Found ${imageFiles.length} image files in directory ${imgDir}.`);
