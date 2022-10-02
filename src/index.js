@@ -1,4 +1,3 @@
-const yargs = require("yargs");
 const inquirer = require("inquirer");
 const axios = require("axios");
 
@@ -6,13 +5,11 @@ const fs = require("fs");
 var FormData = require("form-data");
 
 const config = {
-  protocol: "http",
-  server: "localhost:3000",
   path: "/api/v3",
 };
-const signinEndpoint = `${config.protocol}://${config.server}/signin`;
-const signupEndpoint = `${config.protocol}://${config.server}/signup`;
-const apiEndpointBase = `${config.protocol}://${config.server}${config.path}`;
+let signinEndpoint;
+let signupEndpoint;
+let apiEndpointBase;
 
 const q = (type, name, message) => {
   return { type, name, message };
@@ -159,11 +156,14 @@ const doBulkUpload = (files, assignment, token) => {
   return Promise.all(promises);
 };
 
-const start = async (screenshotDir) => {
-  yargs.parse();
+const start = async (server, screenshotDir) => {
   console.log(screenshotDir);
+  signinEndpoint = `${server}/signin`;
+  signupEndpoint = `${server}/signup`;
+  apiEndpointBase = `${server}${config.path}`;
+  let token;
   try {
-    const token = await signinSignupPrompts();
+    token = await signinSignupPrompts();
   } catch (e) {
     console.log(e);
     return;

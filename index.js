@@ -14,11 +14,17 @@ yargs
         demandOption: true, // Required
         type: "string",
       },
+      server: {
+        describe: "Server address e.g. https://...",
+        alias: "s",
+        demandOption: true, // Required
+        type: "string",
+      },
     },
 
     // Function for your command
     handler(argv) {
-      cli.start(argv.dir);
+      cli.start(argv.server, argv.dir);
     },
   })
   .demandCommand();
