@@ -105,7 +105,7 @@ const scanForImages = async (dir) => {
   return files.filter((f) => fileIsImage(f));
 };
 
-const promptForUpload = async (imageFiles) => {
+const promptForUpload = async (imageFiles, imgDir) => {
   const prompts = [
     {
       type: "list",
@@ -113,9 +113,12 @@ const promptForUpload = async (imageFiles) => {
       message: "Do you want to submit the above files?",
       choices: ["yes", "no"],
     },
-    q("input", "assignment", "What is the name of the assignment?"),
+    {
+      ...q("input", "assignment", "What is the name of the assignment?"),
+      when: (prev) => prev === "yes",
+    },
   ];
-  console.log(`Found {imageFiles} image files`);
+  console.log(`Found ${imageFiles.length} image files in directory ${imgDir}.`);
   imageFiles.forEach((file) => {
     console.log(file);
   });
@@ -177,7 +180,7 @@ const start = async (server, screenshotDir) => {
     try {
       const imgFiles = await scanForImages(imgDir);
       imgPaths = imgFiles.map((img) => `${imgDir}/${img}`);
-      okToUpload = await promptForUpload(imgPaths);
+      okToUpload = await promptForUpload(imgPaths, imgDir);
       assignment = okToUpload; // name of assignment was returned from promptForUpload
     } catch (e) {
       console.log(e.message);
