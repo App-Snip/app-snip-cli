@@ -4,7 +4,7 @@ Upload images files for class.
 
 ## Installation
 
-    npm intall -g App-Snip/app-snip-cli
+    npm install -g App-Snip/app-snip-cli
 
 ## Usage
 
